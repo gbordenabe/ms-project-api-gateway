@@ -8,11 +8,12 @@ import {
   Put,
 } from '@nestjs/common';
 import { ClientProxyMsProject } from 'src/common/proxy/client-proxy';
-import { UserDto } from './dto/user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/common/interfaces/user.interface';
 import { UserMSG } from 'src/common/constants';
 import { ApiTags } from '@nestjs/swagger';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('Users')
 @Controller('user')
@@ -21,8 +22,8 @@ export class UserController {
   private _clientProxyUser = this.clientProxy.clientProxyUsers();
 
   @Post()
-  create(@Body() userDto: UserDto): Observable<IUser> {
-    return this._clientProxyUser.send(UserMSG.CREATE, userDto);
+  create(@Body() createUserDto: CreateUserDto): Observable<IUser> {
+    return this._clientProxyUser.send(UserMSG.CREATE, createUserDto);
   }
 
   @Get()
@@ -36,8 +37,11 @@ export class UserController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() userDto: UserDto): Observable<IUser> {
-    return this._clientProxyUser.send(UserMSG.UPDATE, { id, userDto });
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Observable<IUser> {
+    return this._clientProxyUser.send(UserMSG.UPDATE, { id, updateUserDto });
   }
 
   @Delete(':id')
