@@ -11,3 +11,9 @@ export enum UserMSG {
   FIND_ONE = 'FIND_ONE_USER',
   VALID_USER = 'VALID_USER',
 }
+
+export enum AuthMSG {
+  LOGIN = 'LOGIN_USER',
+  REGISTER = 'REGISTER_USER',
+  VALID_USER = 'VALID_USER',
+}
