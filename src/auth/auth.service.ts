@@ -15,8 +15,21 @@ export class AuthService {
   private _clientProxyAuth = this.clientProxy.clientProxyAuth();
 
   async login(loginDto: LoginDto) {
-    console.log(loginDto);
-    return this._clientProxyAuth.send(AuthMSG.LOGIN, loginDto);
+    try {
+      const response = await firstValueFrom(
+        this._clientProxyAuth.send(AuthMSG.LOGIN, loginDto),
+      );
+
+      if (response.isError) {
+        throw new HttpException(response.error.message, response.error.status);
+      }
+      return response.result;
+    } catch (error) {
+      throw new HttpException(
+        error.message,
+        error.status ? error.status : HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   async register(registerDto: RegisterDto) {
