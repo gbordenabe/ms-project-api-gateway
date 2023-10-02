@@ -21,7 +21,7 @@ export class ClientProxyMsProject {
     });
   }
 
-  clientProxyAuth(): ClientProxy {
+  /* clientProxyAuth(): ClientProxy {
     return ClientProxyFactory.create({
       transport: Transport.RMQ,
       options: {
@@ -29,5 +29,5 @@ export class ClientProxyMsProject {
         queue: RabbitMQ.AuthQueue,
       },
     });
-  }
+  } */
 }
